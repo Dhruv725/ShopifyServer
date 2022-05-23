@@ -7,15 +7,12 @@ const cors=require("cors");
 
 //MiddleWare for CORS policy
 app.use(cors());
-app.use(cors({
-    origin: '*'
-}));
-app.use(function(req, res, next) {
-  
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
+app.options('*', (req, res) => {
+        // allowed XHR methods  
+        res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
+        res.send();
+    });
 
 mongoose.connect(MONGOURI, {
   useNewUrlParser: true,
